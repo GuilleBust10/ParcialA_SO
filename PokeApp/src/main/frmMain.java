@@ -30,7 +30,7 @@ public class frmMain extends javax.swing.JFrame {
     Pokedex dexter; // objeto que hará uso de la conexión a la API
     Pokemon miPokemon; // objeto de la clase que hace match con los datos de la API
     Reloj reloj = new Reloj(); // objeto para la hora del sistema. ¡No modificar!
-    
+    Viewer vi = new Viewer();
     /**
      * Creates new form frmMain
      */
@@ -247,7 +247,9 @@ public class frmMain extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         dexter = new Pokedex(txtNombre.getText());
         try {
+            
             dexter.buscarPokemon();
+            vi.mostrarSprites();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
