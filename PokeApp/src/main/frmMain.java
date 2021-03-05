@@ -31,6 +31,7 @@ public class frmMain extends javax.swing.JFrame {
     Pokemon miPokemon; // objeto de la clase que hace match con los datos de la API
     Reloj reloj = new Reloj(); // objeto para la hora del sistema. ¡No modificar!
     Viewer vi = new Viewer();
+    Thread tiempo;
     /**
      * Creates new form frmMain
      */
@@ -106,7 +107,25 @@ public class frmMain extends javax.swing.JFrame {
     
     // clase para deletrear el nombre del pokemon
     //<Inserte su código aquí>
-
+    public void deletreo()
+    {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                String palabra = txtNombre.getText();
+                try {
+                    for(int i = 0; i < palabra.length(); i++)
+                    {
+                        lblLetra.setText(palabra.substring(i, i+1));
+                        Thread.sleep(500);
+                    }
+                } catch (InterruptedException ex) {
+                }
+            }
+        };
+        tiempo = new Thread(runnable);
+        tiempo.start();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -261,7 +280,7 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnDeletrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletrearActionPerformed
-        //
+        deletreo();
     }//GEN-LAST:event_btnDeletrearActionPerformed
 
     /**
