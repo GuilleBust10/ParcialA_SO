@@ -82,6 +82,7 @@ public class frmMain extends javax.swing.JFrame {
     public class Viewer {
         public void mostrarSprites() throws MalformedURLException, IOException, InterruptedException{
             // obtengo la url del listado de cada uno de los sprites que me dio la API
+            
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -129,14 +130,17 @@ public class frmMain extends javax.swing.JFrame {
     //<Inserte su código aquí>
     public void deletreo()
     {
+        
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String palabra = txtNombre.getText();
+                // donde vamos almacenar el texto que vamos a generar
+                String texto = txtNombre.getText();
                 try {
-                    for(int i = 0; i < palabra.length(); i++)
+                    for (int i = 0; i < texto.length(); i++)
                     {
-                        lblLetra.setText(palabra.substring(i, i+1));
+                        //
+                        lblLetra.setText(texto.substring(i, i+1));
                         Thread.sleep(500);
                     }
                 } catch (InterruptedException ex) {
