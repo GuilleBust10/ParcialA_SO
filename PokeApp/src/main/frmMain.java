@@ -31,7 +31,7 @@ public class frmMain extends javax.swing.JFrame {
     Pokemon miPokemon; // objeto de la clase que hace match con los datos de la API
     Reloj reloj = new Reloj(); // objeto para la hora del sistema. ¡No modificar!
     Viewer vi = new Viewer();
-    Thread tiempo;
+    Thread tiempo, tiempo2;
     /**
      * Creates new form frmMain
      */
@@ -82,26 +82,46 @@ public class frmMain extends javax.swing.JFrame {
     public class Viewer {
         public void mostrarSprites() throws MalformedURLException, IOException, InterruptedException{
             // obtengo la url del listado de cada uno de los sprites que me dio la API
-            URL url = new URL(miPokemon.getSprites().get("front_default").toString());
-            Image img = ImageIO.read(url);
-            lblSprites.setIcon(new ImageIcon(img));
-            // 1 segundo para cada cambio de sprite
-            Thread.sleep(1000);
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    
+                    try {
+                        for(int i=0; i<=1000; i++)
+                        {
+                        URL url = new URL(miPokemon.getSprites().get("front_default").toString());
+                        Image img = ImageIO.read(url);
+                        lblSprites.setIcon(new ImageIcon(img));
+                        // 1 segundo para cada cambio de sprite
+                        Thread.sleep(1000);
+
+                        url = new URL(miPokemon.getSprites().get("back_default").toString());
+                        img = ImageIO.read(url);
+                        lblSprites.setIcon(new ImageIcon(img));
+                        Thread.sleep(1000);
+
+                        url = new URL(miPokemon.getSprites().get("front_shiny").toString());
+                        img = ImageIO.read(url);
+                        lblSprites.setIcon(new ImageIcon(img));
+                        Thread.sleep(1000);
+
+                        url = new URL(miPokemon.getSprites().get("back_shiny").toString());
+                        img = ImageIO.read(url);
+                        lblSprites.setIcon(new ImageIcon(img));
+                        Thread.sleep(1000);
+                        }
+                    } catch (MalformedURLException ex) {
+                        Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
             
-            url = new URL(miPokemon.getSprites().get("back_default").toString());
-            img = ImageIO.read(url);
-            lblSprites.setIcon(new ImageIcon(img));
-            Thread.sleep(1000);
-            
-            url = new URL(miPokemon.getSprites().get("front_shiny").toString());
-            img = ImageIO.read(url);
-            lblSprites.setIcon(new ImageIcon(img));
-            Thread.sleep(1000);
-            
-            url = new URL(miPokemon.getSprites().get("back_shiny").toString());
-            img = ImageIO.read(url);
-            lblSprites.setIcon(new ImageIcon(img));
-            Thread.sleep(1000);
+                }
+            };
+            tiempo2 = new Thread(runnable);
+            tiempo2.start();
         }
     }
     
